@@ -2,5 +2,5 @@
 .dart_tool/
 .packages
 
-# Conventional directory for build output.
-build/
+# Compiled file
+/build/upload_to_skynet.exe

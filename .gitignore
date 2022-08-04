@@ -4,3 +4,6 @@
 
 # Compiled file
 /build/upload_to_skynet.exe
+
+# library
+sqlite3.dll

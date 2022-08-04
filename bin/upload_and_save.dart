@@ -7,6 +7,9 @@ import 'package:path/path.dart' as path;
 // import 'package:upload_and_save/upload_and_save.dart' as upload_and_save;
 
 void main(List<String> arguments) async {
+  var logSink =
+      File('upload_and_save_log.txt').openWrite(mode: FileMode.append);
+
   final configJson = await File('upload_and_save_config.json')
       .readAsString()
       .then((String contents) {
@@ -39,7 +42,7 @@ void main(List<String> arguments) async {
     var sourceList = sourceDirectory.list();
     await for (final FileSystemEntity f in sourceList) {
       if (f is File) {
-        print('Found file ${f.path}');
+        print('Uploading ${f.path}');
         String fileNameWithoutExtension = path.basenameWithoutExtension(f.path);
 
         // Upload
@@ -58,7 +61,7 @@ void main(List<String> arguments) async {
         try {
           File(newPath).deleteSync();
         } catch (e) {
-          print(e);
+          logSink.write('error, probably fine: $e \n');
         }
         f.copySync(newPath);
         f.delete();
@@ -66,11 +69,15 @@ void main(List<String> arguments) async {
     }
     // Upload new DB
     db.dispose();
+    String skylink = "sia://123123";
+
     // Save Skylink To Log File
+    logSink.write('Database skylink: $skylink \n');
   } catch (e) {
     print(e.toString());
   }
   // print('Hello world: ${upload_and_save.calculate()}!');
+  logSink.close();
   print('press enter to close.');
   stdin.readLineSync();
 }

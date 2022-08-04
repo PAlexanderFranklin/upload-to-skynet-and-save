@@ -49,8 +49,8 @@ void main(List<String> arguments) async {
         // Save Skylink
         db.execute("""
           UPDATE audio
-          SET skylink = $skylink
-          WHERE file_name = $fileNameWithoutExtension;
+          SET skylink = "$skylink"
+          WHERE file_name = "$fileNameWithoutExtension";
         """);
 
         // Move to destination

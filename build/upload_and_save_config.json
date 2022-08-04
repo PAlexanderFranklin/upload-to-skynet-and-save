@@ -1,5 +1,7 @@
 {
   "skynetRegistrySeed": "This is a generic seed.",
   "source": "source",
-  "destination": "uploaded"
+  "destination": "uploaded",
+  "skynetAPIKey": "123456",
+  "skynetPortal": "siasky.net"
 }

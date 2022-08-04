@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
 
-// import 'package:upload_and_save/upload_and_save.dart' as upload_and_save;
+import 'package:skynet/skynet.dart';
+import 'package:upload_and_save/upload_and_save.dart' as upload_and_save;
 
 void main(List<String> arguments) async {
   final configJson = await File('upload_and_save_config.json')
@@ -13,6 +14,8 @@ void main(List<String> arguments) async {
   final skynetRegistrySeed = configJson["skynetRegistrySeed"];
   final source = configJson["source"];
   final destination = configJson["destination"];
+  final skynetAPIKey = configJson["skynetAPIKey"];
+  final skynetPortal = configJson["skynetPortal"];
 
   if (!(skynetRegistrySeed is String &&
       source is String &&
@@ -31,14 +34,17 @@ void main(List<String> arguments) async {
     await for (final FileSystemEntity f in sourceList) {
       if (f is File) {
         print('Found file ${f.path}');
-      } else if (f is Directory) {
-        print('Found dir ${f.path}');
+        // Upload
+        // Save Skylink
+        // Move to destination
       }
     }
+    // Upload new DB
+    // Save Skylink To Log File
   } catch (e) {
     print(e.toString());
   }
+  print('Hello world: ${upload_and_save.calculate()}!');
   print('press enter to close.');
   stdin.readLineSync();
-  // print('Hello world: ${upload_and_save.calculate()}!');
 }

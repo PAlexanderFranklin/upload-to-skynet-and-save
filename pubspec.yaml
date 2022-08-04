@@ -10,8 +10,9 @@ environment:
 #   path: ^1.8.0
 dependencies:
   skynet:
-    git: https://github.com/redsolver/skynet.git
-    ref: experimental
+    git: 
+      url: https://github.com/redsolver/skynet.git
+      ref: experimental
 
 dev_dependencies:
   lints: ^2.0.0

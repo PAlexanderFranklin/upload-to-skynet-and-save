@@ -54,6 +54,14 @@ void main(List<String> arguments) async {
         """);
 
         // Move to destination
+        String newPath = '$destination/${path.basename(f.path)}';
+        try {
+          File(newPath).deleteSync();
+        } catch (e) {
+          print(e);
+        }
+        f.copySync(newPath);
+        f.delete();
       }
     }
     // Upload new DB

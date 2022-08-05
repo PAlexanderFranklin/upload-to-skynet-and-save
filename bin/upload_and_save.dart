@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 
-import 'package:skynet/skynet.dart' as skynet;
+import 'package:skynet/skynet.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:path/path.dart' as path;
 // import 'package:upload_and_save/upload_and_save.dart' as upload_and_save;
@@ -23,7 +23,8 @@ void main(List<String> arguments) async {
   final skynetPortal = configJson["skynetPortal"] ?? 'siasky.net';
   final databaseName = configJson["databaseName"] ?? 'MetaData.db';
 
-  final skynetClient = skynet.SkynetClient(portal: skynetPortal);
+  final skynetClient = SkynetClient(portal: skynetPortal);
+  skynetClient.headers = {'Skynet-Api-Key': skynetAPIKey};
 
   if (!(skynetRegistrySeed is String &&
       source is String &&
@@ -46,8 +47,12 @@ void main(List<String> arguments) async {
         String fileNameWithoutExtension = path.basenameWithoutExtension(f.path);
 
         // Upload
-        // skynetClient.upload.uploadFile(f);
-        String skylink = "sia://123123";
+        final skylink = await skynetClient.upload.uploadFile(
+          SkyFile(
+            content: f.readAsBytesSync(),
+            filename: path.basename(f.path),
+          ),
+        );
 
         // Save Skylink
         db.execute("""
@@ -75,6 +80,7 @@ void main(List<String> arguments) async {
     logSink.write('Database skylink: $skylink \n');
   } catch (e) {
     print(e.toString());
+    logSink.write('$e \n');
   }
   // print('Hello world: ${upload_and_save.calculate()}!');
   logSink.close();

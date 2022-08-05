@@ -2,8 +2,9 @@
 .dart_tool/
 .packages
 
-# Compiled file
+# Local Build Files
 /build/upload_to_skynet.exe
+/build/upload_and_save_config.json
 
 # library
 sqlite3.dll

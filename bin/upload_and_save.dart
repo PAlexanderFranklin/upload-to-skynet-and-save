@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:skynet/skynet.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:path/path.dart' as path;
-// import 'package:upload_and_save/upload_and_save.dart' as upload_and_save;
 
 void main(List<String> arguments) async {
   var logSink =
@@ -82,7 +81,6 @@ void main(List<String> arguments) async {
     print(e.toString());
     logSink.write('$e \n');
   }
-  // print('Hello world: ${upload_and_save.calculate()}!');
   logSink.close();
   print('press enter to close.');
   stdin.readLineSync();
